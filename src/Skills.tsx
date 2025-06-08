@@ -11,7 +11,7 @@ interface Technology {
   icon: string;
 }
 
-const Skills = () => {
+const Skills = ({ darkMode }) => {
   const [activeTab, setActiveTab] = useState('skills');
 
   const skills: Skill[] = [
@@ -21,10 +21,10 @@ const Skills = () => {
     { name: 'UI/UX Design', percentage: 90 },
     { name: 'Node.js', percentage: 99 },
     { name: 'Figma', percentage: 90 },
-    { name: 'Java', percentage: 85 }, // Added Java
-    { name: 'Python', percentage: 80 }, // Added Python
-    { name: 'Automation', percentage: 75 }, // Added Automation
-    { name: 'TypeScript', percentage: 90 }, // Added TypeScript
+    { name: 'Java', percentage: 85 },
+    { name: 'Python', percentage: 80 },
+    { name: 'Automation', percentage: 75 },
+    { name: 'TypeScript', percentage: 90 },
   ];
 
   const technologies: { [key: string]: Technology[] } = {
@@ -34,10 +34,10 @@ const Skills = () => {
       { name: 'JavaScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
       { name: 'React', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
       { name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
-      { name: 'Java', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg' }, // Added Java
+      { name: 'Java', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg' },
       { name: 'Express', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg' },
-      { name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' }, // Added TypeScript
-      { name: 'Python', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' }, // Added Python
+      { name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
+      { name: 'Python', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
       { name: 'Figma', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg' },
       { name: 'Firebase', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg' },
       { name: 'MongoDB', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg' },
@@ -45,10 +45,9 @@ const Skills = () => {
       { name: 'Tailwind CSS', icon: 'https://www.svgrepo.com/show/333609/tailwind-css.svg' },
       { name: 'Git', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
     ],
-      // Note: Automation icon not added as it’s not a specific technology with a standard icon. Consider a custom icon if needed.
   };
 
-  const CircularProgress = ({ percentage }: { percentage: number }) => {
+  const CircularProgress = ({ percentage, darkMode }) => {
     const circumference = 2 * Math.PI * 50; // r = 50
     const strokeDashoffset = circumference - (percentage / 100) * circumference;
 
@@ -61,7 +60,7 @@ const Skills = () => {
           stroke="currentColor"
           strokeWidth="8"
           fill="transparent"
-          className="text-gray-700 dark:text-gray-600"
+          className={`text-gray-300 ${darkMode ? 'dark:text-gray-600' : ''}`}
         />
         <circle
           cx="64"
@@ -72,25 +71,25 @@ const Skills = () => {
           fill="transparent"
           strokeDasharray={circumference}
           strokeDashoffset={strokeDashoffset}
-          className="text-indigo-500 dark:text-indigo-400 transition-all duration-1000"
+          className={`text-indigo-500 ${darkMode ? 'dark:text-indigo-400' : ''} transition-all duration-1000`}
         />
       </svg>
     );
   };
 
   return (
-    <section id="skills" className="py-24 bg-gray-900 text-white">
+    <section id="skills" className={`py-24 ${darkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-4xl md:text-5xl font-bold mb-6"
+            className={`text-4xl md:text-5xl font-bold mb-6 ${darkMode ? 'text-indigo-400' : 'text-indigo-600'}`}
           >
             My Technical Skills
           </motion.h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed">
+          <p className={`text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed ${darkMode ? '' : 'text-gray-600'}`}>
             I've worked with a variety of technologies to create exceptional digital experiences. Here are my technical and creative skills.
           </p>
         </div>
@@ -103,16 +102,20 @@ const Skills = () => {
                 key={skill.name}
                 initial={{ opacity: 0, scale: 0.5 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
                 className="text-center"
               >
                 <div className="relative">
-                  <CircularProgress percentage={skill.percentage} />
+                  <CircularProgress percentage={skill.percentage} darkMode={darkMode} />
                   <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                    <span className="text-2xl font-bold">{skill.percentage}%</span>
+                    <span className={`text-2xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                      {skill.percentage}%
+                    </span>
                   </div>
                 </div>
-                <h3 className="mt-4 text-lg font-medium">{skill.name}</h3>
+                <h3 className={`mt-4 text-lg font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                  {skill.name}
+                </h3>
               </motion.div>
             ))}
           </div>
@@ -125,8 +128,12 @@ const Skills = () => {
               onClick={() => setActiveTab('skills')}
               className={`px-6 py-2 rounded-full text-sm font-medium transition-colors ${
                 activeTab === 'skills'
-                  ? 'bg-indigo-500 text-white'
-                  : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                  ? darkMode
+                    ? 'bg-indigo-600 text-white'
+                    : 'bg-indigo-600 text-white'
+                  : darkMode
+                    ? 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
               }`}
               aria-label="View technical skills"
             >
@@ -145,8 +152,10 @@ const Skills = () => {
                 key={tech.name}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="tech-grid-item bg-gray-800 p-6 rounded-xl text-center hover:bg-gray-700 transition-colors"
+                transition={{ duration: 0.3, delay: index * 0.1 }}
+                className={`tech-grid-item p-6 rounded-xl text-center hover:${darkMode ? 'bg-gray-700' : 'bg-gray-100'} transition-colors ${
+                  darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'
+                }`}
               >
                 <img
                   src={tech.icon}
@@ -154,7 +163,9 @@ const Skills = () => {
                   className="w-12 h-12 mx-auto mb-4"
                   loading="lazy"
                 />
-                <p className="text-sm font-medium">{tech.name}</p>
+                <p className={`text-sm font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                  {tech.name}
+                </p>
               </motion.div>
             ))}
           </motion.div>
@@ -166,13 +177,13 @@ const Skills = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <h3 className="text-2xl font-bold mb-4 text-indigo-600 dark:text-indigo-400">
+            <h3 className={`text-2xl font-bold mb-4 ${darkMode ? 'text-indigo-400' : 'text-indigo-600'}`}>
               Additional Strengths
             </h3>
-            <p className="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed">
-              I also excel in <span className="font-semibold text-indigo-600 dark:text-indigo-400">problem-solving</span>,{' '}
-              <span className="font-semibold text-indigo-600 dark:text-indigo-400">data structures & algorithms (DSA)</span>, and{' '}
-              <span className="font-semibold text-indigo-600 dark:text-indigo-400">automation</span>, enabling me to tackle complex challenges and optimize solutions effectively.
+            <p className={`text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed ${darkMode ? '' : 'text-gray-600'}`}>
+              I also excel in <span className={`font-semibold ${darkMode ? 'text-indigo-400' : 'text-indigo-600'}`}>problem-solving</span>,{' '}
+              <span className={`font-semibold ${darkMode ? 'text-indigo-400' : 'text-indigo-600'}`}>data structures & algorithms (DSA)</span>, and{' '}
+              <span className={`font-semibold ${darkMode ? 'text-indigo-400' : 'text-indigo-600'}`}>automation</span>, enabling me to tackle complex challenges and optimize solutions effectively.
             </p>
           </motion.div>
         </div>

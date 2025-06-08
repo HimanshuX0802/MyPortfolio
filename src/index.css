@@ -53,34 +53,77 @@
 }
 
 .animate-fadeIn {
-  animation: fadeIn 1s ease-out forwards;
+  animation: fadeIn 0.5s ease-out forwards;
   opacity: 0;
 }
 
 .animate-fadeInLeft {
-  animation: fadeInLeft 1s ease-out forwards;
+  animation: fadeInLeft 0.5s ease-out forwards;
   opacity: 0;
 }
 
 .animate-fadeInRight {
-  animation: fadeInRight 1s ease-out forwards;
+  animation: fadeInRight 0.5s ease-out forwards;
   opacity: 0;
 }
 
 .animate-progressBar {
-  animation: progressBar 1.5s ease-out forwards;
+  animation: progressBar 1s ease-out forwards;
   width: 0;
 }
 
 /* Staggered animations for multiple elements */
 .animate-fadeIn:nth-child(1) { animation-delay: 0ms; }
-.animate-fadeIn:nth-child(2) { animation-delay: 200ms; }
-.animate-fadeIn:nth-child(3) { animation-delay: 400ms; }
-.animate-fadeIn:nth-child(4) { animation-delay: 600ms; }
+.animate-fadeIn:nth-child(2) { animation-delay: 100ms; }
+.animate-fadeIn:nth-child(3) { animation-delay: 200ms; }
+.animate-fadeIn:nth-child(4) { animation-delay: 300ms; }
 
-/* Smooth scrolling */
-html {
+/* Smooth scrolling and overflow control */
+html,
+body {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh; /* Ensure full height */
+}
+
+/* Navbar and container styling */
+nav {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 100%; /* Ensure it doesn’t exceed viewport */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem; /* Default padding */
+  padding-right: 1rem; /* Default padding */
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding-left: 0.75rem; /* Increased from 0.5rem for margin */
+    padding-right: 0.75rem; /* Increased from 0.5rem for margin */
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-left: 2rem; /* Matches lg:px-8 */
+    padding-right: 2rem; /* Matches lg:px-8 */
+  }
+}
+
+/* Add margin to sections for phone mode */
+@media (max-width: 640px) {
+  section {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
 }
 
 /* Custom scrollbar */
