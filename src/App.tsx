@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
-import { Moon, Sun, Linkedin, Github, Mail, Menu, X, MapPin, Briefcase, Clock } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Moon, Sun, Linkedin, Github, Mail, Menu, X } from 'lucide-react';
 import { motion } from 'framer-motion';
+import emailjs from 'emailjs-com';
 import Skills from './Skills';
-import Projects from './Projects'; // Import the new Projects component
+import Projects from './Projects';
 import me from './img/me.jpeg';
-
+import resume from './img/Himanshu_singh_Resume.pdf';
 
 function App() {
   const [darkMode, setDarkMode] = useState(() => {
@@ -16,8 +17,11 @@ function App() {
   const [isDeleting, setIsDeleting] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [formStatus, setFormStatus] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const roles = ['Full-Stack Web Developer', 'UI/UX Designer', 'Creative Thinker'];
+  const roles = ['Full-Stack Developer', 'Web Developer', 'Creative Thinker'];
 
   // Toggle dark mode
   useEffect(() => {
@@ -85,6 +89,35 @@ function App() {
     }
   };
 
+  // Handle form submission with EmailJS
+  const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setFormStatus('');
+
+    if (formRef.current) {
+      emailjs
+        .sendForm(
+          import.meta.env.VITE_EMAILJS_SERVICE_ID || 'Himanshu', // Default to your Service ID
+          import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_dxx4dyg', // Replace with your Template ID
+          formRef.current,
+          import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'Pcoh3zHZTphOi043t' // Your Public Key
+        )
+        .then(
+          () => {
+            setFormStatus('Message sent successfully!');
+            formRef.current?.reset();
+            setIsSubmitting(false);
+          },
+          (error) => {
+            setFormStatus('Failed to send message. Please try again later.');
+            console.error('EmailJS error:', error);
+            setIsSubmitting(false);
+          }
+        );
+    }
+  };
+
   return (
     <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'dark bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
       {/* Navbar */}
@@ -92,7 +125,7 @@ function App() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex-shrink-0 font-bold text-2xl">
-              Himanshu Singh<span className="text-indigo-600 dark:text-indigo-400">.</span>
+              Himanshu Singh<span className="text-indigo-600 dark:text-indigo-400"></span>
             </div>
             <div className="hidden md:flex space-x-8">
               {['home', 'about', 'skills', 'projects', 'contact'].map((item) => (
@@ -100,8 +133,8 @@ function App() {
                   key={item}
                   onClick={() => scrollToSection(item)}
                   className={`capitalize transition-colors duration-300 ${activeSection === item
-                      ? 'text-indigo-600 dark:text-indigo-400 font-medium'
-                      : 'text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400'
+                    ? 'text-indigo-600 dark:text-indigo-400 font-medium'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400'
                     }`}
                 >
                   {item}
@@ -134,8 +167,8 @@ function App() {
                   key={item}
                   onClick={() => scrollToSection(item)}
                   className={`block px-3 py-2 rounded-md text-base font-medium w-full text-left capitalize ${activeSection === item
-                      ? 'bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-400'
-                      : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                    ? 'bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-400'
+                    : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                     }`}
                 >
                   {item}
@@ -154,7 +187,7 @@ function App() {
               className="md:w-1/2 md:pr-12 mb-10 md:mb-0"
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.3 }}
             >
               <div className="relative inline-block mb-4">
                 <span className="bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-400 px-4 py-1 rounded-full text-sm font-medium">
@@ -195,7 +228,7 @@ function App() {
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full blur-3xl opacity-20 animate-pulse"></div>
                 <img
-                  src={me} // Replace with your image URL
+                  src={me}
                   alt="Himanshu Singh's profile"
                   className="relative z-10 rounded-full w-64 h-64 md:w-80 md:h-80 object-cover mx-auto border-4 border-white dark:border-gray-800 shadow-xl"
                   loading="lazy"
@@ -232,7 +265,7 @@ function App() {
               <div className="relative group">
                 <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 to-purple-600 opacity-30 rounded-lg blur-2xl"></div>
                 <img
-                  src="https://images.pexels.com/photos/3861958/pexels-photo-3861958.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                  src="https://miro.medium.com/v2/resize:fit:960/1*0WDqECSWiU6N41iBQc3KPQ.png"
                   alt="Himanshu Singh working on a project"
                   className="relative w-full h-auto rounded-lg shadow-2xl transition-transform duration-500 group-hover:scale-105"
                   loading="lazy"
@@ -250,7 +283,7 @@ function App() {
                   <span className="font-semibold text-indigo-600 dark:text-indigo-400">full stack web developer</span> focused on building clean, responsive, and functional web applications. Over the past year, I've been sharpening my skills by working on real-world projects, exploring both front-end and back-end development.
                 </p>
                 <p className="text-gray-600 dark:text-gray-300 mb-6 text-lg leading-relaxed">
-                  I specialize in creating responsive, accessible, and performant web applications using modern technologies like React, Node.js, and Firebase. My strong <span className="font-semibold text-indigo-600 dark:text-indigo-400">problem-solving skills</span> and knowledge of <span className="font-semibold text-indigo-600 dark:text-indigo-400">data structures & algorithms (DSA)</span> enable me to tackle complex challenges and optimize solutions effectively.
+                  I specialize in creating responsive, accessible, and performant web applications using modern technologies like React, Node.js, and more. My strong <span className="font-semibold text-indigo-600 dark:text-indigo-400">problem-solving skills</span> and knowledge of <span className="font-semibold text-indigo-600 dark:text-indigo-400">data structures & algorithms (DSA)</span> enable me to tackle complex challenges and optimize solutions effectively.
                 </p>
               </motion.div>
               <motion.div
@@ -284,8 +317,8 @@ function App() {
                   Hire Me
                 </button>
                 <a
-                  href="/path-to-your-cv.pdf" // Replace with the actual path to your CV file
-                  download
+                  href={resume}
+                  download="Himanshu_Singh_Resume.pdf"
                   className="px-6 py-3 border border-gray-300 dark:border-gray-700 hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-600 dark:hover:border-indigo-600 text-gray-600 dark:text-gray-300 rounded-full transition-colors duration-300 transform hover:scale-105"
                   aria-label="Download Himanshu Singh's CV"
                 >
@@ -381,7 +414,7 @@ function App() {
           >
             <div className="relative bg-white dark:bg-gray-700 rounded-2xl shadow-2xl p-8 bg-gradient-to-br from-indigo-100/50 to-white dark:from-indigo-900/50 dark:to-gray-800">
               <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 to-purple-600 opacity-10 rounded-2xl"></div>
-              <div className="relative space-y-8">
+              <form ref={formRef} onSubmit={sendEmail} className="relative space-y-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -394,6 +427,7 @@ function App() {
                     <input
                       type="text"
                       id="name"
+                      name="user_name"
                       className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-600 dark:focus:ring-indigo-400 focus:border-transparent dark:bg-gray-800 dark:text-white shadow-sm hover:shadow-md transition-shadow duration-300"
                       placeholder="Your name"
                       required
@@ -410,6 +444,7 @@ function App() {
                     <input
                       type="email"
                       id="email"
+                      name="user_email"
                       className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-600 dark:focus:ring-indigo-400 focus:border-transparent dark:bg-gray-800 dark:text-white shadow-sm hover:shadow-md transition-shadow duration-300"
                       placeholder="Your email"
                       required
@@ -427,6 +462,7 @@ function App() {
                   <input
                     type="text"
                     id="subject"
+                    name="subject"
                     className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-600 dark:focus:ring-indigo-400 focus:border-transparent dark:bg-gray-800 dark:text-white shadow-sm hover:shadow-md transition-shadow duration-300"
                     placeholder="Subject"
                     required
@@ -442,6 +478,7 @@ function App() {
                   </label>
                   <textarea
                     id="message"
+                    name="message"
                     rows={5}
                     className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-600 dark:focus:ring-indigo-400 focus:border-transparent dark:bg-gray-800 dark:text-white shadow-sm hover:shadow-md transition-shadow duration-300"
                     placeholder="Your message"
@@ -456,13 +493,25 @@ function App() {
                 >
                   <button
                     type="submit"
-                    className="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full transition-colors duration-300 transform hover:scale-105 shadow-lg"
+                    disabled={isSubmitting}
+                    className={`px-8 py-3 bg-indigo-600 text-white rounded-full transition-colors duration-300 transform hover:scale-105 shadow-lg ${
+                      isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-indigo-700'
+                    }`}
                     aria-label="Send message"
                   >
-                    Send Message
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
                   </button>
+                  {formStatus && (
+                    <p
+                      className={`mt-4 text-sm ${
+                        formStatus.includes('success') ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
+                      }`}
+                    >
+                      {formStatus}
+                    </p>
+                  )}
                 </motion.div>
-              </div>
+              </form>
             </div>
           </motion.div>
           <motion.div

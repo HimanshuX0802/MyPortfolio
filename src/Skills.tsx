@@ -15,12 +15,16 @@ const Skills = () => {
   const [activeTab, setActiveTab] = useState('skills');
 
   const skills: Skill[] = [
-    { name: 'HTML/CSS', percentage: 95 },
-    { name: 'JavaScript', percentage: 90 },
-    { name: 'React', percentage: 85 },
-    { name: 'UI/UX Design', percentage: 80 },
-    { name: 'Node.js', percentage: 75 },
-    { name: 'Figma', percentage: 85 },
+    { name: 'HTML/CSS', percentage: 100 },
+    { name: 'JavaScript', percentage: 100 },
+    { name: 'React', percentage: 100 },
+    { name: 'UI/UX Design', percentage: 90 },
+    { name: 'Node.js', percentage: 99 },
+    { name: 'Figma', percentage: 90 },
+    { name: 'Java', percentage: 85 }, // Added Java
+    { name: 'Python', percentage: 80 }, // Added Python
+    { name: 'Automation', percentage: 75 }, // Added Automation
+    { name: 'TypeScript', percentage: 90 }, // Added TypeScript
   ];
 
   const technologies: { [key: string]: Technology[] } = {
@@ -30,16 +34,18 @@ const Skills = () => {
       { name: 'JavaScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
       { name: 'React', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
       { name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
-      { name: 'Figma', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg' },
+      { name: 'Java', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg' }, // Added Java
       { name: 'Express', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg' },
+      { name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' }, // Added TypeScript
+      { name: 'Python', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' }, // Added Python
+      { name: 'Figma', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg' },
       { name: 'Firebase', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg' },
       { name: 'MongoDB', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg' },
       { name: 'jQuery', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jquery/jquery-original.svg' },
-      { name: 'Tailwind CSS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg' },
+      { name: 'Tailwind CSS', icon: 'https://www.svgrepo.com/show/333609/tailwind-css.svg' },
       { name: 'Git', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
-      // Uncomment if you decide to include TypeScript
-      // { name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
     ],
+      // Note: Automation icon not added as it’s not a specific technology with a standard icon. Consider a custom icon if needed.
   };
 
   const CircularProgress = ({ percentage }: { percentage: number }) => {
@@ -164,8 +170,9 @@ const Skills = () => {
               Additional Strengths
             </h3>
             <p className="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed">
-              I also excel in <span className="font-semibold text-indigo-600 dark:text-indigo-400">problem-solving</span> and{' '}
-              <span className="font-semibold text-indigo-600 dark:text-indigo-400">data structures & algorithms (DSA)</span>, enabling me to tackle complex challenges and optimize solutions effectively.
+              I also excel in <span className="font-semibold text-indigo-600 dark:text-indigo-400">problem-solving</span>,{' '}
+              <span className="font-semibold text-indigo-600 dark:text-indigo-400">data structures & algorithms (DSA)</span>, and{' '}
+              <span className="font-semibold text-indigo-600 dark:text-indigo-400">automation</span>, enabling me to tackle complex challenges and optimize solutions effectively.
             </p>
           </motion.div>
         </div>
