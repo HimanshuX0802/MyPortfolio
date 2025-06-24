@@ -352,7 +352,7 @@ function App() {
                 transition={{ duration: 0.5, delay: 0.8 }}
               >
                 {[
-                  { href: 'https://www.linkedin.com/in/himanshu-singh7905/', icon: <Linkedin className="h-5 w-5" />, label: 'LinkedIn' },
+                  // { href: 'https://www.linkedin.com/in/himanshu-singh7905/', icon: <Linkedin className="h-5 w-5" />, label: 'LinkedIn' },
                   { href: 'https://github.com/HimanshuX0802', icon: <Github className="h-5 w-5" />, label: 'GitHub' },
                   { href: 'mailto:himanshux0802@gmail.com', icon: <Mail className="h-5 w-5" />, label: 'Email' },
                 ].map((link, index) => (
@@ -384,10 +384,10 @@ function App() {
             transition={{ duration: 0.5 }}
           >
             {[
-              { value: '1+', label: 'Year Experience' },
-              { value: '10+', label: 'Projects Completed' },
-              { value: '3+', label: 'Happy Clients' },
-              { value: '5+', label: 'Awards Won' },
+              { value: '4+', label: 'Year Experience' },
+              { value: '50+', label: 'Projects Completed' },
+              { value: '50+', label: 'Happy Clients' },
+              { value: '2+', label: 'Awards Won' },
             ].map((stat, index) => (
               <motion.div
                 key={index}
@@ -540,7 +540,7 @@ function App() {
           >
             {[
               { icon: <Mail className="h-6 w-6" />, title: 'Email', content: 'himanshux0802@gmail.com' },
-              { icon: <Linkedin className="h-6 w-6" />, title: 'LinkedIn', content: 'linkedin.com/in/himanshu-singh7905/' },
+              // { icon: <Linkedin className="h-6 w-6" />, title: 'LinkedIn', content: 'linkedin.com/in/himanshu-singh7905/' },
               { icon: <Github className="h-6 w-6" />, title: 'GitHub', content: 'github.com/HimanshuX0802' },
             ].map((item, index) => (
               <motion.div
@@ -577,15 +577,15 @@ function App() {
               <p className="text-gray-400 text-sm">© {new Date().getFullYear()} All rights reserved.</p>
             </div>
             <div className="flex space-x-6">
-              <motion.a
-                href="https://www.linkedin.com/in/himanshu-singh7905/"
+              {/* <motion.a
+                // href="https://www.linkedin.com/in/himanshu-singh7905/"
                 className="text-gray-400 hover:text-indigo-400 transition-colors"
                 aria-label="LinkedIn"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
                 <Linkedin className="h-5 w-5" />
-              </motion.a>
+              </motion.a> */}
               <motion.a
                 href="https://github.com/HimanshuX0802"
                 className="text-gray-400 hover:text-indigo-400 transition-colors"
